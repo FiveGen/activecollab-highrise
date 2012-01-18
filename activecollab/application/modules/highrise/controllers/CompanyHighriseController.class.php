@@ -184,8 +184,13 @@ class CompanyHighriseController extends CompaniesController
 					'last_name'			=> strval($contact->{'last-name'}),
 					'email'				=> strval($contact->{'contact-data'}->{'email-addresses'}->{'email-address'}->address),
 				);
-								
-				$arrAdded[] = $this->addUser($arrData);
+				
+				$intId = $this->addUser($arrData);
+				
+				if ($intId !== false)
+				{
+					$arrAdded[] = $intId;
+				}
 			}
 			
 				
@@ -196,7 +201,8 @@ class CompanyHighriseController extends CompaniesController
 			);
 		}
 		
-		$this->smarty->assign(array(
+		$this->smarty->assign(array
+		(
 			'contacts'	=> $arrContacts,
 			'company'	=> $this->active_company->getName(),
 			'action'	=> assemble_url('people_company_import_highrise', array('company_id'=>$this->active_company->getId())),
@@ -329,15 +335,14 @@ class CompanyHighriseController extends CompaniesController
 //			UserConfigOptions::setValue('highrise_id', $user_data['highrise_id'], $user);
 		
 			db_commit();
+			
+			return $user->getId();
 		}
 		else
 		{
 			db_rollback();
-
-//			$this->smarty->assign('errors', $save);
+			return false;
 		}
-		
-		return $user->getId();
 	}
 	
 }

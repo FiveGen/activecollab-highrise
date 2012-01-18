@@ -48,7 +48,7 @@ class ProfileHighriseController extends UsersController
 			UserConfigOptions::setValue('highrise_auth_token', $auth_token, $this->active_user);
 			
 			flash_success("Highrise settings successfully saved");
-			$this->redirectTo('people_company_user', array('user_id' => $this->active_user->getId(), 'company_id' => $this->active_user->getCompanyId()));
+			$this->redirectTo('people_company_user', array('company_id' => $this->active_user->getCompanyId(), 'user_id' => $this->active_user->getId()));
 		} // if
 		
 		$this->smarty->assign(array(
