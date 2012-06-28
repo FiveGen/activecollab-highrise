@@ -262,11 +262,11 @@ class CompanyHighriseController extends CompaniesController
 				break;
 				
 			default:
-				flash_error('Connecting to Highrise failed. Please check your access credentials.');
+				flash_error('Connecting to Highrise failed. Please check your server configuration.');
 				break;
 		}
 		
-		$this->redirectTo('admin_highrise');
+		$this->redirectTo('profile_highrise', array('company_id'=>$this->logged_user->getCompanyId(), 'user_id'=>$this->logged_user->getId()));
 		
 		return false;
     }
